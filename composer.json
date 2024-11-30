@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Webapi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "aliyegen",
+            "email": "dev@aliyegen.com"
+        }
+    ]
+}
