@@ -10,12 +10,12 @@ class Request {
     protected $method;
     protected $uri;
 
-    public function __constructed(){
+    public function __construct(){
         $this->headers = getallheaders();
         $this->body = $this->setBody();
-        $this->$queryParams = $_GET;
+        $this->queryParams = $_GET;
         $this->method = $_SERVER["REQUEST_METHOD"];
-        $this->uri = parse_url($_SERVER["REQUEST_URI"]);
+        $this->uri = $this->parseUri();
     }
 
     private function setBody(): array {
@@ -24,6 +24,15 @@ class Request {
             ) ?? $_REQUEST ?? [];
 
         return $input;
+    }
+
+    private function parseUri(): string {
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $uri = $_SERVER['REQUEST_URI'];
+            $parsedUrl = parse_url($uri);
+            return $parsedUrl['path'] ?? '/';
+        }
+        return '/';
     }
 
     public function getHeaders(): array {
