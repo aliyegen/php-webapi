@@ -18,15 +18,13 @@ $users = [
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use Webapi\Core\Router;
-use Webapi\Core\Response;
-use Webapi\Core\Request;
+use Webapi\Core\Container;
 
-$req = new Request();
-$res = new Response();
-$router = new Router();
-
+$container = new Container();
+$router = $container->build("Webapi\Core\Router");
 require_once __DIR__ . "/../src/Routers/index.php";
+$router->dispatcher();
 
-$router->dispatcher($req, $res);
+//print_r($container->getInstances());
 
 ?>
